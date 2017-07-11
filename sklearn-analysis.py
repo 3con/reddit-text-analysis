@@ -9,6 +9,6 @@ feature_names = tf.get_feature_names()
 dense = tfidf_matrix.todense()
 
 comment = dense[0].tolist()[0]
-phrase_scores = [pair for pair in zip(range(0, len(episode)), episode) if pair[1] > 0]
+phrase_scores = [pair for pair in zip(range(0, len(comment)), comment) if pair[1] > 0]
 
 print sorted(phrase_scores, key=lambda t: t[1] * -1)[:5]
