@@ -13,6 +13,8 @@ comments_dict = defaultdict(dict)
 stemmer = PorterStemmer()
 
 def stem_tokens(tokens, stemmer):
+    """Stems array of tokenized text using nltk PorterStemmer."""
+
     stemmed = []
     for item in tokens:
         stemmed.append(stemmer.stem(item))
@@ -27,6 +29,9 @@ def stem_tokens(tokens, stemmer):
 #     return no_stopwords
 
 def clean_text(text):
+    """Makes text lowercase, removes punctuation and formatting,
+    and passes text through a stemmer. Returns a string."""
+
     lowers = text.lower()
     no_punctuation = lowers.translate(None, string.punctuation)
     clean = no_punctuation.replace('rnrn',' ')

@@ -2,6 +2,7 @@ import csv
 from load_data import corpus, comments_dict
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+
 tf = TfidfVectorizer(analyzer='word', max_features=100, min_df = 0, stop_words = 'english')
 
 tfidf_matrix =  tf.fit_transform(corpus)
@@ -31,6 +32,10 @@ with open('dataset.csv', 'wb') as d:
         j += 1
 
 ## output:
-## for each comment:
+## a row for each comment:
 ##      100 entries of df values indexed by feature_name,
 ##      followed by two labels: low and high binary values.
+
+## next:
+## for each row with low=1:
+##      find most common words
