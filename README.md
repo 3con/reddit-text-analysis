@@ -1,5 +1,7 @@
 # Reddit Text Analysis Tool
 
+A tool to analyze the top phrases found in Reddit comments, based on their upvotes, downvotes, and gilded status.
+
 ## Tech Stack
 
 __Backend:__ Python<br>
