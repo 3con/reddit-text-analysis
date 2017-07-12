@@ -28,13 +28,14 @@ with open('dataset.csv', 'wb') as d:
             row[phrase[0]] = phrase[1]
         row.append(comments_dict[j]['low'])
         row.append(comments_dict[j]['high'])
+        row.append(comments_dict[j]['gilded'])
         writer.writerow(row)
         j += 1
 
 ## output:
 ## a row for each comment:
 ##      100 entries of df values indexed by feature_name,
-##      followed by two labels: low and high binary values.
+##      followed by three labels: low, high, and gilded binary values.
 
 ## next:
 ## for each row with low=1:
