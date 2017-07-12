@@ -88,10 +88,10 @@ with open("data/RC_2006-01") as f:
         gilded = entry[start:end]
 
         comments_dict[j] = {"comment": comment,
-                       "score": score,
-                       "low": low,
-                       "high": high,
-                       "gilded": gilded}
+                            "score": score,
+                            "low": low,
+                            "high": high,
+                            "gilded": gilded}
 
         j += 1
 

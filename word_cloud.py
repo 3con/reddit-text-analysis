@@ -3,7 +3,8 @@ from load_data import corpus, comments_dict
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-tf = TfidfVectorizer(analyzer='word', max_features=100, min_df = 0, stop_words = 'english')
+tf = TfidfVectorizer(analyzer='word', max_features=100, min_df = 0,
+                     ngram_range=(1,3), stop_words = 'english')
 
 tfidf_matrix =  tf.fit_transform(corpus)
 feature_names = tf.get_feature_names()
@@ -12,11 +13,11 @@ dense = tfidf_matrix.todense()
 
 phrases_by_comment = []
 
+# build list of lists, with each element representing one comment
 for i in range(0, len(dense)):
     comment = dense[i].tolist()[0]
     phrase_scores = [pair for pair in zip(range(0, len(comment)), comment)]
     phrases_by_comment.append(phrase_scores)
-
 
 # write to csv file
 with open('dataset.csv', 'wb') as d:
@@ -40,3 +41,4 @@ with open('dataset.csv', 'wb') as d:
 ## next:
 ## for each row with low=1:
 ##      find most common words
+## same for high=1, gilded=1
