@@ -9,7 +9,7 @@ import nltk
 from nltk.stem.porter import PorterStemmer
  
 
-comments = defaultdict(dict)
+comments_dict = defaultdict(dict)
 stemmer = PorterStemmer()
 
 def stem_tokens(tokens, stemmer):
@@ -38,7 +38,9 @@ def clean_text(text):
 
 # def load_data(file):
 with open("data/RC_2006-01") as f:
+    
     content = f.readlines()
+    j = 0
 
     for entry in content:
         # extract comment id
@@ -80,13 +82,15 @@ with open("data/RC_2006-01") as f:
                 break
         gilded = entry[start:end]
 
-        comments[comment_id] = {"comment": comment,
-                                "score": score,
-                                "low": low,
-                                "high": high,
-                                "gilded": gilded}
+        comments_dict[j] = {"comment": comment,
+                       "score": score,
+                       "low": low,
+                       "high": high,
+                       "gilded": gilded}
+
+        j += 1
 
 corpus = []
 
-for comment in comments:
-    corpus.append(comments[comment]["comment"])
+for comment in comments_dict:
+    corpus.append(comments_dict[comment]["comment"])
