@@ -4,6 +4,7 @@ most used features in each category and prints them."""
 
 import heapq
 from load_data import corpus, comments_dict
+from parameters import MAX_FEATURES, N_GRAM_RANGE, NUM_PHRASES
 from stop_words import stop_words
 from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 
@@ -11,8 +12,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 # build tf-idf vector matrix
 custom_stop_words = ENGLISH_STOP_WORDS.union(stop_words)
 
-tf = TfidfVectorizer(analyzer='word', max_features=1000, min_df = 0,
-                     ngram_range=(3,4), stop_words = custom_stop_words)
+tf = TfidfVectorizer(analyzer='word', max_features=MAX_FEATURES, min_df = 0,
+                     ngram_range=N_GRAM_RANGE, stop_words = custom_stop_words)
 
 tfidf_matrix =  tf.fit_transform(corpus)
 phrases = tf.get_feature_names()
@@ -50,11 +51,9 @@ for comment in phrases_by_comment:
 
 
 # find most common phrase indexes in each category
-n = 5
-
-low_indexes = heapq.nlargest(n, low_counts, key=low_counts.get)
-high_indexes = heapq.nlargest(n, high_counts, key=high_counts.get)
-gilded_indexes = heapq.nlargest(n, gilded_counts, key=gilded_counts.get)
+low_indexes = heapq.nlargest(NUM_PHRASES, low_counts, key=low_counts.get)
+high_indexes = heapq.nlargest(NUM_PHRASES, high_counts, key=high_counts.get)
+gilded_indexes = heapq.nlargest(NUM_PHRASES, gilded_counts, key=gilded_counts.get)
 
 
 # translate index to phrase
