@@ -2,6 +2,7 @@
 with score and gilded status in comments dictionary. Adds all comments as
 elements in corpus array."""
 
+import json
 import string
 from collections import defaultdict
 
@@ -39,36 +40,13 @@ with open("data/RC_2006-01") as f:
     j = 0
 
     for entry in content:
-        # extract comment body
-        start = entry.find('"body":') + 8
-        for i, char in enumerate(entry[start:]):
-            if char == '"' and entry[i+(start)-1] != '\\':
-                end = i+(start)
-                break
-        comment = entry[start:end]
-        comment = clean_text(comment)
+        json_entry = json.loads(entry)
 
-        # extract comment score (upvotes and downvotes), categorize into low/high
-        start = entry.find('"score":') + 8
-        for i, char in enumerate(entry[start:]):
-            if char == ',':
-                end = i+(start)
-                break
-        score = entry[start:end]
-        if score == '':
-            score = '0'
-        score = int(score)
-
+        comment = clean_text(json_entry["body"].encode('ascii','ignore'))
+        score = json_entry["score"]
         low = 1 if score < 0 else 0
         high = 1 if score > 5 else 0
-
-        # extract comment gilded status
-        start = entry.find('"gilded":') + 9
-        for i, char in enumerate(entry[start:]):
-            if char == ',':
-                end = i+(start)
-                break
-        gilded = entry[start:end]
+        gilded = json_entry["gilded"]
 
         comments_dict[j] = {"comment": comment,
                             "score": score,
